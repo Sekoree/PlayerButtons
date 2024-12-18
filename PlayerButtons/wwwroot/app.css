@@ -1,5 +1,5 @@
 html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
     background: linear-gradient(to bottom, #424242, #353535);
 }
 
@@ -9,12 +9,24 @@ a, .btn-link {
 
 .btn-primary {
     color: #fff;
-    background-color: #1b6ec2;
+    background-color: #43c9bf;
     width: 250px;
     height: 60px;
     font-size: 20px;
     margin: 5px;
-    border-color: #1861ac;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #32978f;
+ }
+
+.nav-scrollable {
+    background-color: #212121 !important;
+}
+
+.top-row {
+    background-color: #8350d1 !important;
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {

@@ -1,0 +1,48 @@
+@page "/Player"
+@using System.Diagnostics
+@using System.Text
+@rendermode InteractiveServer
+<h3>Player</h3>
+
+<h4>Last: @lastPlayed</h4>
+
+<button class="btn btn-primary" @onclick="() => Stop()">STOP</button>
+<br/>
+
+@for (int i = 0; i < 30; i++)
+{
+    int localI = i;
+    <button class="btn btn-primary" @onclick="() => Play(localI)">Play @i</button>
+    <br/>
+}
+
+@code {
+
+    private HttpClient Http { get; set; } = new HttpClient();
+    
+    private int lastPlayed = -1;
+
+    private async Task Play(int i)
+    {
+        string playerApiPath = "uiPlayer/playByIndex/";
+        string json = $"{{ \"p\": {0}, \"t\": {i} }}";
+        var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:8869/" + playerApiPath)
+        {
+            Content = new StringContent(json, Encoding.UTF8, "application/json")
+        };
+        var response = await Http.SendAsync(request);
+        var responseString = await response.Content.ReadAsStringAsync();
+        Console.WriteLine(responseString);
+        lastPlayed = i;
+    }
+
+    private async Task Stop()
+    {
+        string playerApiPath = "uiPlayer/stop";
+        var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:8869/" + playerApiPath);
+        var response = await Http.SendAsync(request);
+        var responseString = await response.Content.ReadAsStringAsync();
+        Console.WriteLine(responseString);
+    }
+
+}
